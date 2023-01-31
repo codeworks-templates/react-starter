@@ -17,12 +17,16 @@ function Login() {
         id: 'faker123'
       })
       AppState.user = AppState.account
+      localStorage.setItem('user-token', JSON.stringify(true))
+
     }, 1000)
   }
 
   function logout() {
     AppState.account = null
     AppState.user = null
+    localStorage.removeItem('user-token')
+
     // AuthService.logout({})
   }
 
