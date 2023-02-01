@@ -1,5 +1,6 @@
 import { AppState } from '../AppState'
 import { Account } from '../models/Account.js'
+import { logger } from '../utils/Logger.js'
 import { api } from './AxiosService'
 
 class AccountService {
@@ -9,7 +10,8 @@ class AccountService {
       AppState.account = new Account(res.data)
       return AppState.account
     } catch (err) {
-      throw new Error('HAVE YOU STARTED YOUR SERVER YET???')
+      logger.error('HAVE YOU STARTED YOUR SERVER YET???')
+      return null
     }
   }
 }

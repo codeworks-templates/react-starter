@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { AuthService } from "../services/AuthService.js";
 
 const AuthGuard = (props) => {
-  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const checkUserToken = () => {
     const userToken = localStorage.getItem('user-token');
     if (!userToken || userToken === 'undefined') {
       setIsLoggedIn(false);
-      return navigate('/');
+      return AuthService.loginWithRedirect({
+        appState: {
+          targetUrl: location.hash //.replace(/#/ig, '')
+        }
+      })
     }
     setIsLoggedIn(true);
   }

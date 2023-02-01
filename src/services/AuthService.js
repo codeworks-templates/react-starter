@@ -1,6 +1,8 @@
 import { initialize } from '@bcwdev/auth0provider-client'
+import { useNavigate } from 'react-router-dom'
 import { AppState } from '../AppState'
 import { audience, clientId, domain } from '../env'
+import { logger } from '../utils/Logger.js'
 import { accountService } from './AccountService'
 import { api } from './AxiosService'
 import { socketService } from './SocketService'
@@ -11,17 +13,21 @@ export const AuthService = initialize({
   audience,
   useRefreshTokens: true,
   onRedirectCallback: appState => {
-    location.replace(
-      appState && appState.targetUrl
+    try {
+      const url = appState && appState.targetUrl
         ? appState.targetUrl
         : window.location.pathname
-    )
+      const nav = useNavigate()
+      nav(url, { replace: true })
+    } catch (e) {
+      logger.error('[AuthRedirectError]', e)
+    }
   }
 })
 
 AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async() => {
   api.defaults.headers.authorization = AuthService.bearer
-  localStorage.setItem('user-token', JSON.stringify(true))
+  localStorage.setItem('user-token', JSON.stringify(AuthService.bearer))
   api.interceptors.request.use(refreshAuthToken)
   AppState.user = AuthService.user
   await accountService.getAccount()
