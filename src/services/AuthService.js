@@ -1,5 +1,4 @@
 import { initialize } from '@bcwdev/auth0provider-client'
-import { useNavigate } from 'react-router-dom'
 import { AppState } from '../AppState'
 import { audience, clientId, domain } from '../env'
 import { logger } from '../utils/Logger.js'
@@ -17,8 +16,7 @@ export const AuthService = initialize({
       const url = appState && appState.targetUrl
         ? appState.targetUrl
         : window.location.pathname
-      const nav = useNavigate()
-      nav(url, { replace: true })
+      location.hash = url
     } catch (e) {
       logger.error('[AuthRedirectError]', e)
     }
