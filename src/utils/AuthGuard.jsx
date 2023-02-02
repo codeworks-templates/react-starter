@@ -9,7 +9,7 @@ const AuthGuard = (props) => {
       setIsLoggedIn(false);
       return AuthService.loginWithRedirect({
         appState: {
-          targetUrl: location.hash //.replace(/#/ig, '')
+          targetUrl: location.hash
         }
       })
     }
