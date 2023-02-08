@@ -6,6 +6,9 @@ import { api } from './AxiosService'
 class AccountService {
   async getAccount() {
     try {
+      if (AppState.account) {
+        return AppState.account
+      }
       const res = await api.get('/account')
       AppState.account = new Account(res.data)
       return AppState.account

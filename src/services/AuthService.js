@@ -43,6 +43,7 @@ async function refreshAuthToken(config) {
   } else if (needsRefresh) {
     await AuthService.getTokenSilently()
     api.defaults.headers.authorization = AuthService.bearer
+    localStorage.setItem('user-token', JSON.stringify(AuthService.bearer))
     socketService.authenticate(AuthService.bearer)
   }
   return config
