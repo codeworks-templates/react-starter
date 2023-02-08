@@ -1,0 +1,40 @@
+{
+  "React Function Component": {
+    "prefix": "!rt:function",
+    "body": [
+      "import React from 'react';\n",
+      "export default function $0${0:componentName}() {\n",
+      "\treturn (\n",
+      "\t\t<div className=\"${0:componentName}\">\n\n\t\t</div>\n\t)\n",
+      "}"
+    ],
+    "isFileTemplate": true,
+    "scope": "javascript,typescript,javascriptreact,typescriptreact"
+  },
+  "React Observable Component": {
+    "prefix": "!rt:observable",
+    "body": [
+      "import { observer } from 'mobx-react-lite';",
+      "import React from 'react';\n",
+      "function $0${0:componentName}() {\n",
+      "\treturn (\n",
+      "\t\t<div className=\"${0:componentName}\">\n\n\t\t</div>\n\t)\n",
+      "}",
+      "export default observer(${0:componentName})"
+    ],
+    "isFileTemplate": true,
+    "scope": "javascript,typescript,javascriptreact,typescriptreact"
+  },
+  "TryCatch": {
+    "prefix": "trycatch:Pop",
+    "body": [
+      "try {",
+      "  $0",
+      "}",
+      "catch (error){",
+      "  Pop.error(error);",
+      "}"
+    ],
+    "scope": "javascript,typescript,javascriptreact,typescriptreact"
+  }
+}
