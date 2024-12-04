@@ -1,12 +1,11 @@
-import React from 'react';
 import { createHashRouter } from 'react-router-dom';
-import { App } from './App.jsx';
-import AboutPage from './pages/AboutPage.jsx';
-import AccountPage from './pages/AccountPage.jsx';
-import ErrorPage from './pages/ErrorPage.jsx';
-import HomePage from './pages/HomePage.jsx';
-import { accountService } from './services/AccountService.js';
-import AuthGuard from './utils/AuthGuard.jsx';
+import { App } from './App.tsx';
+import { accountService } from './services/AccountService.ts';
+import AuthGuard from './utils/AuthGuard.js';
+import ErrorPage from './pages/ErrorPage.tsx';
+import HomePage from './pages/HomePage.tsx';
+import AboutPage from './pages/AboutPage.tsx';
+import AccountPage from './pages/AccountPage.tsx';
 
 
 export const router = createHashRouter([
@@ -25,13 +24,11 @@ export const router = createHashRouter([
       },
       {
         path: "account",
-        loader: accountService.getAccount,
         element:
           <AuthGuard>
             <AccountPage />
           </AuthGuard>,
       },
-
     ],
   },
 ]);

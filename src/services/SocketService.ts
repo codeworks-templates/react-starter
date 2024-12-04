@@ -1,5 +1,5 @@
-import Pop from '../utils/Pop'
-import { SocketHandler } from '../utils/SocketHandler'
+import Pop from '../utils/Pop.ts'
+import { SocketHandler } from '../utils/SocketHandler.ts'
 
 class SocketService extends SocketHandler {
   constructor() {
@@ -8,7 +8,7 @@ class SocketService extends SocketHandler {
       .on('error', this.onError)
   }
 
-  onError(e) {
+  onError(e: Error) {
     Pop.toast(e.message, 'error')
   }
 }

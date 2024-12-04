@@ -1,5 +1,10 @@
 export class Account {
-  constructor(data) {
+  id: string
+  email: string
+  name: string
+  picture: string
+
+  constructor(data: Account) {
     this.id = data.id
     this.email = data.email
     this.name = data.name

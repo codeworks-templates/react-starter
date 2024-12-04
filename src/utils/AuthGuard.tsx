@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { audience, clientId, domain } from "../env.js";
 import { AuthService } from "../services/AuthService.js";
-import { RouterError } from "./Errors.js";
+import { RouterError } from "./Errors.ts";
+import { AUTH_EVENTS } from '@bcwdev/auth0provider-client';
 
-const AuthGuard = (props) => {
+const AuthGuard = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const checkUserToken = () => {
+    if (AuthService.state == AUTH_EVENTS.LOADING) {
+      return setTimeout(checkUserToken, 500);
+    }
     if (!domain || !audience || !clientId) {
       throw new RouterError('[INVALID AUTH SETTINGS]', 'Please update auth keys in env.js', 400)
     }
-    const userToken = localStorage.getItem('user-token');
+    const userToken = AuthService.bearer;
     if (!userToken || userToken === 'undefined') {
       setIsLoggedIn(false);
-      return AuthService.loginWithRedirect({
-        appState: {
-          targetUrl: location.hash
-        }
-      })
+      return AuthService.loginWithRedirect()
     }
     setIsLoggedIn(true);
   }
@@ -26,8 +26,7 @@ const AuthGuard = (props) => {
   return (
     <React.Fragment>
       {
-        // eslint-disable-next-line react/prop-types
-        isLoggedIn ? props.children : (<div>Please Login 😋!!!!</div>)
+        isLoggedIn ? children : (<div>Loading...</div>)
       }
     </React.Fragment>
   );

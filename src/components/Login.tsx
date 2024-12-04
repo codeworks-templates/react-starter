@@ -1,8 +1,7 @@
 import { observer } from "mobx-react-lite"
-import React from "react"
 import { Link } from "react-router-dom"
 import { AppState } from "../AppState.js"
-import { AuthService } from "../services/AuthService.js"
+import { AuthService } from "../services/AuthService"
 
 function Login() {
 
@@ -21,7 +20,7 @@ function Login() {
 
   const authenticated = (
     <div className="my-2 my-lg-0">
-      <img src={AppState.account?.picture || AppState.user?.picture} alt="account photo" height="40" className="rounded selectable no-select" data-bs-toggle="dropdown"
+      <img src={AppState.account?.picture || AppState.identity?.picture} alt="account photo" height="40" className="rounded selectable no-select" data-bs-toggle="dropdown"
         aria-expanded="false" />
 
       <div className="dropdown-menu dropdown-menu-lg-end dropdown-menu-start p-0" aria-labelledby="authDropdown">
@@ -43,7 +42,7 @@ function Login() {
   return (
     <div>
       <span className="navbar-text">
-        {!AppState.account?.id ? notAuthenticated : authenticated}
+        {!AppState.identity ? notAuthenticated : authenticated}
       </span>
     </div>
   )

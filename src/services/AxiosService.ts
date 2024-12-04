@@ -4,4 +4,5 @@ export const api = Axios.create({
   baseURL,
   timeout: 8000
 })
-api.defaults.headers.authorization = JSON.parse(localStorage.getItem('user-token'))
+
+api.defaults.headers.authorization = JSON.parse(localStorage.getItem('user-token')!)
